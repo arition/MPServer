@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using MPServer.Models;
+using OpenIddict;
 
 namespace MPServer.Data
 {
-    public class AppDbContext : IdentityDbContext
+    public class AppDbContext : OpenIddictDbContext<User>
     {
         public DbSet<HeartBeat> HeartBeat { get; set; }
 

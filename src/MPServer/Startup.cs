@@ -75,9 +75,10 @@ namespace MPServer
             // Register the OpenIddict services, including the default Entity Framework stores.
             services.AddOpenIddict<User, AppDbContext>()
                 // Enable the token endpoint (required to use the password flow).
-                .EnableTokenEndpoint("/api/user/login")
+                .EnableTokenEndpoint("/api/account/token")
                 // Allow client applications to use the grant_type=password flow.
                 .AllowPasswordFlow()
+                .AllowRefreshTokenFlow()
                 // During development, you can disable the HTTPS requirement.
                 .DisableHttpsRequirement()
                 .UseJsonWebTokens()
