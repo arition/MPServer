@@ -25,7 +25,7 @@ namespace MPServer
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddJsonFile("appsettings.runtime.json", optional: true)
+                .AddJsonFile("appsettings.Runtime.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
@@ -61,7 +61,7 @@ namespace MPServer
                 var signingKeyString = SigningKeyProtector.ProtectKey(signingKey);
                 Configuration["SigningKey"] = signingKeyString;
                 var runtimeConfiguration = new JObject {{"SigningKey", new JValue(signingKeyString)}};
-                var runtimeConfigurationFile = new FileInfo(Path.Combine(ContentRootPath, "appsettings.runtime.json"));
+                var runtimeConfigurationFile = new FileInfo(Path.Combine(ContentRootPath, "appsettings.Runtime.json"));
                 if (runtimeConfigurationFile.Exists) runtimeConfigurationFile.Delete();
                 using (var runtimeConfigurationFileWriter = runtimeConfigurationFile.CreateText())
                 {
@@ -93,6 +93,8 @@ namespace MPServer
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            app.SeedData(ContentRootPath).Wait();
 
             app.UseIdentity();
 
