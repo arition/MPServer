@@ -108,10 +108,6 @@ namespace MPServer
                 ValidateIssuer = false,
                 ValidIssuer = "ExampleIssuer",
 
-                // Validate the JWT Audience (aud) claim
-                ValidateAudience = false,
-                ValidAudience = "ExampleAudience",
-
                 // Validate the token expiry
                 ValidateLifetime = true,
 

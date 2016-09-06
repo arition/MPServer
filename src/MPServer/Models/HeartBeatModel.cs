@@ -28,4 +28,13 @@ namespace MPServer.Models
         [Required]
         public string IPAddress { get; set; }
     }
+
+    public class HeartBeatModel
+    {
+        /// <summary>
+        /// 发送设备
+        /// </summary>
+        [Required]
+        public string Device { get; set; }
+    }
 }
