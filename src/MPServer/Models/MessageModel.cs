@@ -17,12 +17,14 @@ namespace MPServer.Models
         /// 收到短信时间
         /// </summary>
         [Required]
+        [Display(Name = "收到短信时间")]
         public DateTime MessageTime { get; set; }
 
         /// <summary>
         /// 短信内容
         /// </summary>
         [Required]
+        [Display(Name = "短信内容")]
         public string Content { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -7,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MPServer.Data;
 using MPServer.Models;
+using Newtonsoft.Json;
+using System.Reflection;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,6 +24,26 @@ namespace MPServer.Controllers
         public ApiHeartBeatController(AppDbContext db)
         {
             _database = db;
+        }
+
+        [HttpGet("Type")]
+        [Authorize(Roles = "ViewHeartBeat")]
+        public IActionResult GetTypeDef()
+        {
+            return Ok(typeof(HeartBeat).GetProperties()
+                .Where(t => t.GetCustomAttribute<JsonIgnoreAttribute>() == null &&
+                            t.GetCustomAttribute<DisplayAttribute>() != null &&
+                            !t.Name.Contains("Id"))
+                .Select(x => new
+                {
+                    name = char.ToLowerInvariant(x.Name[0]) + x.Name.Substring(1),
+                    display = x.GetCustomAttribute<DisplayAttribute>().Name,
+                    required = x.GetCustomAttribute<RequiredAttribute>() != null,
+                    type =
+                    x.PropertyType.IsGenericParameter && x.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>)
+                        ? Nullable.GetUnderlyingType(x.PropertyType).Name
+                        : x.PropertyType.Name
+                }));
         }
 
         [HttpGet]

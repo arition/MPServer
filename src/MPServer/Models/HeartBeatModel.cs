@@ -14,18 +14,21 @@ namespace MPServer.Models
         /// 收到心跳时间
         /// </summary>
         [Required]
+        [Display(Name = "收到心跳时间")]
         public DateTime HeartBeatTime { get; set; }
 
         /// <summary>
         /// 发送设备
         /// </summary>
         [Required]
+        [Display(Name = "发送设备")]
         public string Device { get; set; }
 
         /// <summary>
         /// 发送设备IP
         /// </summary>
         [Required]
+        [Display(Name = "发送设备IP")]
         public string IPAddress { get; set; }
     }
 

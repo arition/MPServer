@@ -46,7 +46,7 @@ namespace MPServer
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<AppDbContext>(t => t.UseSqlite(connectionString));
 
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>(t => t.Cookies.ApplicationCookie.AutomaticChallenge = false)
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -95,35 +95,26 @@ namespace MPServer
             loggerFactory.AddDebug();
 
             app.SeedData(ContentRootPath).Wait();
-
+            app.UseStaticFiles();
             app.UseIdentity();
-
-            var tokenValidationParameters = new TokenValidationParameters
-            {
-                // The signing key must match!
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(SigningKeyProtector.UnprotectKey(Configuration["SigningKey"])),
-
-                // Validate the JWT Issuer (iss) claim
-                ValidateIssuer = false,
-                ValidIssuer = "ExampleIssuer",
-
-                // Validate the token expiry
-                ValidateLifetime = true,
-
-                // If you want to allow a certain amount of clock drift, set that here:
-                ClockSkew = TimeSpan.Zero
-            };
-
             app.UseJwtBearerAuthentication(new JwtBearerOptions
             {
                 AutomaticAuthenticate = true,
                 AutomaticChallenge = true,
-                TokenValidationParameters = tokenValidationParameters
+                TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey =
+                        new SymmetricSecurityKey(SigningKeyProtector.UnprotectKey(Configuration["SigningKey"])),
+                    ValidateIssuer = false,
+                    ValidIssuer = "",
+                    ValidateAudience = false,
+                    ValidAudience = "",
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero
+                }
             });
-
             app.UseOpenIddict();
-            app.UseStaticFiles();
             app.UseMvc();
         }
     }
