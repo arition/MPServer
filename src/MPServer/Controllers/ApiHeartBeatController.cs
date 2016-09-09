@@ -16,7 +16,7 @@ using System.Reflection;
 namespace MPServer.Controllers
 {
     [Authorize]
-    [Route("api/HeartBeat")]
+    [Route("api/heartBeat")]
     public class ApiHeartBeatController : Controller
     {
         private readonly AppDbContext _database;
@@ -26,7 +26,7 @@ namespace MPServer.Controllers
             _database = db;
         }
 
-        [HttpGet("Type")]
+        [HttpGet("type")]
         [Authorize(Roles = "ViewHeartBeat")]
         public IActionResult GetTypeDef()
         {
@@ -83,6 +83,7 @@ namespace MPServer.Controllers
                 };
                 _database.Entry(heartBeat).State = EntityState.Added;
                 await _database.SaveChangesAsync();
+                return Ok();
             }
             return BadRequest(ModelState);
         }
