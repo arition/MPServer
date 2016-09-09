@@ -6,13 +6,13 @@ Written in .Net Core/Xamarin.
 
 ## Compoments
 
-### MPServer
+### [MPServer](https://github.com/arition/MPServer/tree/master/src/MPServer)
 
 Server to authorize and store heartbeat and message data.
 
 Plan to add a web page to show these data for authorized account.
 
-### HeartBeatClient
+### [HeartBeatClient](https://github.com/arition/MPServer/tree/master/src/HeartBeatClient)
 
 Send heartbeat data to server.
 

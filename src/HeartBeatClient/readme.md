@@ -9,6 +9,7 @@ Run following commends
 ```bash
 git clone https://github.com/arition/MPServer
 cd MPServer/src/HeartBeatClient
+dotnet restore
 dotnet build
 cd bin/Debug/netcoreapp1.0
 dotnet ./HeartBeatClient.dll --username heartbeat --password passwordGeneratedByServer4423 --tokenEndPoint "http://myaddress.com/api/account/token" --heartBeatEndPoint "http://myaddress.com/api/heartBeat" --device deviceName
