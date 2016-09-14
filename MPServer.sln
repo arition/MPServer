@@ -15,6 +15,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MPServer", "src\MPServer\MP
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "HeartBeatClient", "src\HeartBeatClient\HeartBeatClient.xproj", "{50857CB2-8E9B-4FB3-9349-86342E638C41}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageClient", "MessageClient\MessageClient.csproj", "{41414871-72BD-4473-82F7-929274B6865A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,12 @@ Global
 		{50857CB2-8E9B-4FB3-9349-86342E638C41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50857CB2-8E9B-4FB3-9349-86342E638C41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50857CB2-8E9B-4FB3-9349-86342E638C41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41414871-72BD-4473-82F7-929274B6865A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41414871-72BD-4473-82F7-929274B6865A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41414871-72BD-4473-82F7-929274B6865A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{41414871-72BD-4473-82F7-929274B6865A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41414871-72BD-4473-82F7-929274B6865A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41414871-72BD-4473-82F7-929274B6865A}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

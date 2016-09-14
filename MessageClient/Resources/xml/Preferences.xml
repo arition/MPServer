@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/PrefAccount"
+        android:key="PrefAccount">
+        <EditTextPreference
+            android:key="PrefHeartBeatUsername"
+            android:title="@string/PrefHeartBeatUsername"
+            android:defaultValue="heartbeat" />
+        <EditTextPreference
+            android:key="PrefHeartBeatPassword"
+            android:title="@string/PrefHeartBeatPassword"
+            android:defaultValue=""
+            android:inputType="textPassword" />
+        <EditTextPreference
+            android:key="PrefMessageUsername"
+            android:title="@string/PrefMessageUsername"
+            android:defaultValue="message" />
+        <EditTextPreference
+            android:key="PrefMessagePassword"
+            android:title="@string/PrefMessagePassword"
+            android:defaultValue=""
+            android:inputType="textPassword" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/PrefEndPoint"
+        android:key="PrefEndPoint">
+        <EditTextPreference
+            android:key="PrefTokenEndPoint"
+            android:title="@string/PrefTokenEndPoint"
+            android:defaultValue="" />
+        <EditTextPreference
+            android:key="PrefHeartBeatEndPoint"
+            android:title="@string/PrefHeartBeatEndPoint"
+            android:defaultValue="" />
+        <EditTextPreference
+            android:key="PrefMessageEndPoint"
+            android:title="@string/PrefMessageEndPoint"
+            android:defaultValue="" />
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Hello">Hello World, Click Me!</string>
+    <string name="ApplicationName">MessageClient</string>
+    <string name="PrefAccount">Account Settings</string>
+    <string name="PrefHeartBeatUsername">HeartBeat Account Username</string>
+    <string name="PrefHeartBeatPassword">HeartBeat Account Password</string>
+    <string name="PrefMessageUsername">Message Account Username</string>
+    <string name="PrefMessagePassword">Message Account Password</string>
+    <string name="PrefEndPoint">EndPoint Settings</string>
+    <string name="PrefTokenEndPoint">Token EndPoint</string>
+    <string name="PrefHeartBeatEndPoint">HeartBeat EndPoint</string>
+    <string name="PrefMessageEndPoint">Message EndPoint</string>
+</resources>
