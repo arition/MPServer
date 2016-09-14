@@ -24,7 +24,7 @@ namespace MessageClient
             }
 
             HeartBeatServiceIntent = new Intent(Activity, typeof(HeartBeatService));
-            Activity.StartService(HeartBeatServiceIntent);
+            if (HeartBeatServiceIntent != null) Activity.StartService(HeartBeatServiceIntent);
         }
 
         public override void OnResume()

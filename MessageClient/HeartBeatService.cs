@@ -31,9 +31,16 @@ namespace MessageClient
             var heartBeatPassword =
                 PreferenceManager.GetDefaultSharedPreferences(this).All["PrefHeartBeatPassword"] as string;
 
-            Token = new Token(tokenEndPoint, heartBeatUsername, heartBeatPassword);
-            HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
-                await Token.GetAccessToken());
+            try
+            {
+                Token = new Token(tokenEndPoint, heartBeatUsername, heartBeatPassword);
+                HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
+                    await Token.GetAccessToken());
+            }
+            catch (Exception e)
+            {
+                Log.Error("MessageClient", e.ToString());
+            }
 
             CancellationTokenSource = new CancellationTokenSource();
 
