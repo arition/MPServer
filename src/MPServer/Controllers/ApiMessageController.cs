@@ -16,7 +16,7 @@ using System.Reflection;
 namespace MPServer.Controllers
 {
     [Authorize]
-    [Route("api/heartBeat")]
+    [Route("api/message")]
     public class ApiMessageController : Controller
     {
         private readonly AppDbContext _database;
