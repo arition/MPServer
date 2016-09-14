@@ -56,6 +56,7 @@ namespace MPServer.Controllers
             if (count == 0) return Ok(new ApiListModel<HeartBeat>(1, 1, new List<HeartBeat>()));
             var maxPage = count/Variables.ItemPerPage + 1;
             var currentPage = Utils.ProcessInvalidPages(page, maxPage);
+            result = result.Skip((currentPage - 1)*Variables.ItemPerPage).Take(Variables.ItemPerPage);
             return Ok(new ApiListModel<HeartBeat>(maxPage, currentPage, result));
         }
 
