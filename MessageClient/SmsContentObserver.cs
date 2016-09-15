@@ -1,5 +1,6 @@
 ﻿using System;
 using Android.Content;
+using Android.Preferences;
 using Android.Telephony;
 using Message = MessageClient.Models.Message;
 
@@ -41,9 +42,14 @@ namespace MessageClient
                         var msgBody = messages[0].MessageBody;
                         //var msgAddress = messages[0].OriginatingAddress;
                         var msgDate = messages[0].TimestampMillis;
+                        var saltBytes = AesEncryptamajig.GenerateSalt();
+                        var messageAesPassword = PreferenceManager.GetDefaultSharedPreferences(context)
+                            .All["PrefMessageAesPassword"] as string;
+                        var content = AesEncryptamajig.Encrypt(msgBody, messageAesPassword, saltBytes);
                         ReceiveMessage?.Invoke(this, new MessageEventArgs(new Message
                         {
-                            Content = msgBody,
+                            Salt = Convert.ToBase64String(saltBytes),
+                            Content = content,
                             MessageTime = Utils.FromUnixTime(msgDate)
                         }));
                     }

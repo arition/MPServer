@@ -22,6 +22,11 @@
             android:title="@string/PrefMessagePassword"
             android:defaultValue=""
             android:inputType="textPassword" />
+        <EditTextPreference
+            android:key="PrefMessageAesPassword"
+            android:title="@string/PrefMessageAesPassword"
+            android:defaultValue="" 
+            android:inputType="textPassword" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/PrefEndPoint"

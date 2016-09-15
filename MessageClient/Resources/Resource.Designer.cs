@@ -113,6 +113,9 @@ namespace MessageClient
 			// aapt resource value: 0x7f050003
 			public const int PrefHeartBeatUsername = 2131034115;
 			
+			// aapt resource value: 0x7f05000b
+			public const int PrefMessageAesPassword = 2131034123;
+			
 			// aapt resource value: 0x7f05000a
 			public const int PrefMessageEndPoint = 2131034122;
 			

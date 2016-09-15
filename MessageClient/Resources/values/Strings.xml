@@ -11,4 +11,5 @@
     <string name="PrefTokenEndPoint">Token EndPoint</string>
     <string name="PrefHeartBeatEndPoint">HeartBeat EndPoint</string>
     <string name="PrefMessageEndPoint">Message EndPoint</string>
+    <string name="PrefMessageAesPassword">Message Encrypt Password</string>
 </resources>
