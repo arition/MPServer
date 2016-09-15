@@ -24,6 +24,8 @@ namespace MessageClient
                 }
             }
 
+            HeartBeatServiceIntent = new Intent(Activity, typeof(HeartBeatService));
+            if (HeartBeatServiceIntent != null) Activity.StartService(HeartBeatServiceIntent);
             MessageMoniterServiceIntent = new Intent(Activity, typeof(MessageMoniterService));
             if (MessageMoniterServiceIntent != null) Activity.StartService(MessageMoniterServiceIntent);
         }
