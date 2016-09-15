@@ -1,48 +1,60 @@
 using System;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
+using System.Threading;
 using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Preferences;
 using Android.Util;
+using Newtonsoft.Json;
 
 namespace MessageClient
 {
     [Service]
     public class MessageMoniterService : Service
     {
+        protected HttpClient HttpClient { get; } = new HttpClient();
+        protected Token Token { get; set; }
+        protected CancellationTokenSource CancellationTokenSource { get; set; }
+
         public override void OnCreate()
         {
-            Log.Info("KokoroGate", "ServiceStart");
+            Log.Info("MessageClient", "ServiceStart");
 
             var mSmsReceiver = new SmsBroadcastReceiver();
+            
+            var tokenEndPoint = PreferenceManager.GetDefaultSharedPreferences(this).All["PrefTokenEndPoint"] as string;
+            var messageEndPoint =
+                PreferenceManager.GetDefaultSharedPreferences(this).All["PrefMessageEndPoint"] as string;
+            var messageUsername =
+                PreferenceManager.GetDefaultSharedPreferences(this).All["PrefMessageUsername"] as string;
+            var messagePassword =
+                PreferenceManager.GetDefaultSharedPreferences(this).All["PrefMessagePassword"] as string;
+
             mSmsReceiver.ReceiveMessage += async (sender, e) =>
             {
-                Log.Info("KokoroGate", $"Receive Message: {e.Message.Content}");
-                while (true)
+                Log.Info("MessageClient", $"Receive Message: {e.Message.Content}");
+
+                try
                 {
-                    try
+                    Token = new Token(tokenEndPoint, messageUsername, messagePassword);
+                    HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
+                        await Token.GetAccessToken());
+                    using (var result = await HttpClient.PostAsync(messageEndPoint,
+                        new StringContent(JsonConvert.ToString(e.Message), Encoding.UTF8, "application/json")))
                     {
-                        using (var result = await Utils.HttpClient.PostAsync("http://128.199.195.164:8080/api/Message",
-                            new StringContent("", Encoding.UTF8, "application/json")))
-                        {
-                            if (result.StatusCode == HttpStatusCode.Unauthorized)
-                            {
-                                await Utils.LoginAsync();
-                                continue;
-                            }
-                            result.EnsureSuccessStatusCode();
-                            break;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Error("KokoroGate", "Send: " + ex.Message);
-                        break;
+                        result.EnsureSuccessStatusCode();
                     }
                 }
+                catch (Exception ex)
+                {
+                    Log.Error("MessageClient", "Send: " + ex.Message);
+                }
             };
+
             var smsfilter = new IntentFilter(SmsBroadcastReceiver.SmsReceived) {Priority = 2147483647};
             RegisterReceiver(mSmsReceiver, smsfilter);
 

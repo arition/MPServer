@@ -9,6 +9,7 @@ namespace MessageClient
     public class SettingsFragment : PreferenceFragment, ISharedPreferencesOnSharedPreferenceChangeListener
     {
         protected Intent HeartBeatServiceIntent { get; set; }
+        protected Intent MessageMoniterServiceIntent { get; set; }
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -23,8 +24,8 @@ namespace MessageClient
                 }
             }
 
-            HeartBeatServiceIntent = new Intent(Activity, typeof(HeartBeatService));
-            if (HeartBeatServiceIntent != null) Activity.StartService(HeartBeatServiceIntent);
+            MessageMoniterServiceIntent = new Intent(Activity, typeof(MessageMoniterService));
+            if (MessageMoniterServiceIntent != null) Activity.StartService(MessageMoniterServiceIntent);
         }
 
         public override void OnResume()
@@ -52,6 +53,11 @@ namespace MessageClient
             {
                 Activity.StopService(HeartBeatServiceIntent);
                 Activity.StartService(HeartBeatServiceIntent);
+            }
+            if (MessageMoniterServiceIntent != null)
+            {
+                Activity.StopService(MessageMoniterServiceIntent);
+                Activity.StartService(MessageMoniterServiceIntent);
             }
         }
 
