@@ -16,7 +16,7 @@ Plan to add a web page to show these data for authorized account.
 
 Send heartbeat data to server.
 
-### MessageClient
+### [MessageClient](https://github.com/arition/MPServer/tree/master/src/MessageClient)
 
 Android Client to Send heartbeat and message data. Message data is aes-256 crypted.
 
