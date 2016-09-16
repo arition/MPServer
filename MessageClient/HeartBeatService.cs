@@ -69,10 +69,10 @@ namespace MessageClient
                     {
                         Log.Error("MessageClient", e.ToString());
                     }
-                    await Task.Delay(10 * 1000);
+                    await Task.Delay(10*1000);
                 }
                 // ReSharper disable once FunctionNeverReturns
-            },CancellationTokenSource.Token);
+            }, CancellationTokenSource.Token);
 #pragma warning restore 4014
         }
 

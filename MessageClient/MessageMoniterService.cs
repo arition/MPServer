@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -10,6 +12,8 @@ using Android.OS;
 using Android.Preferences;
 using Android.Util;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 
 namespace MessageClient
 {
@@ -43,8 +47,12 @@ namespace MessageClient
                     Token = new Token(tokenEndPoint, messageUsername, messagePassword);
                     HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
                         await Token.GetAccessToken());
+                    var content = JsonConvert.SerializeObject(e.Message, Formatting.Indented, new JsonSerializerSettings
+                    {
+                        ContractResolver = new CamelCasePropertyNamesContractResolver()
+                    });
                     using (var result = await HttpClient.PostAsync(messageEndPoint,
-                        new StringContent(JsonConvert.ToString(e.Message), Encoding.UTF8, "application/json")))
+                        new StringContent(content.ToString(), Encoding.UTF8, "application/json")))
                     {
                         result.EnsureSuccessStatusCode();
                     }
