@@ -6,8 +6,7 @@
 
     "dependencies": {
         "Newtonsoft.Json": "9.0.1",
-        "System.CommandLine": "0.1.0-e160908-1",
-        "System.Net.Http": "4.1.0"
+        "System.CommandLine": "0.1.0-e160908-1"
     },
 
     "frameworks": {
@@ -17,7 +16,8 @@
                 "Microsoft.NETCore.App": {
                     "type": "platform",
                     "version": "1.0.0"
-                }
+                },
+                "System.Net.Http": "4.1.0"
             }
         },
         "net452": {
