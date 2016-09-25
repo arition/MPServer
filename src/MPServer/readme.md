@@ -10,6 +10,7 @@ Run following commends
 git clone https://github.com/arition/MPServer
 cd MPServer/src/MPServer
 dotnet restore
+dotnet ef database update
 dotnet run
 ```
 
