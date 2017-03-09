@@ -44,7 +44,11 @@ namespace MPServer
             SigningKeyProtector = ActivatorUtilities.CreateInstance<SigningKeyProtector>(serviceProvider);
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<AppDbContext>(t => t.UseSqlite(connectionString));
+            services.AddDbContext<AppDbContext>(t =>
+            {
+                t.UseSqlite(connectionString);
+                t.UseOpenIddict();
+            });
 
             services.AddIdentity<User, IdentityRole>(t => t.Cookies.ApplicationCookie.AutomaticChallenge = false)
                 .AddEntityFrameworkStores<AppDbContext>()
@@ -73,16 +77,20 @@ namespace MPServer
             }
 
             // Register the OpenIddict services, including the default Entity Framework stores.
-            services.AddOpenIddict<User, AppDbContext>()
+            services.AddOpenIddict(t =>
+            {
+                t.AddEntityFrameworkCoreStores<AppDbContext>();
+                t.AddMvcBinders();
                 // Enable the token endpoint (required to use the password flow).
-                .EnableTokenEndpoint("/api/account/token")
+                t.EnableTokenEndpoint("/api/account/token");
                 // Allow client applications to use the grant_type=password flow.
-                .AllowPasswordFlow()
-                .AllowRefreshTokenFlow()
+                t.AllowPasswordFlow();
+                t.AllowRefreshTokenFlow();
                 // During development, you can disable the HTTPS requirement.
-                .DisableHttpsRequirement()
-                .UseJsonWebTokens()
-                .AddSigningKey(new SymmetricSecurityKey(SigningKeyProtector.UnprotectKey(Configuration["SigningKey"])));
+                t.DisableHttpsRequirement();
+                t.UseJsonWebTokens();
+                t.AddSigningKey(new SymmetricSecurityKey(SigningKeyProtector.UnprotectKey(Configuration["SigningKey"])));
+            });
 
             // Add framework services.
             services.AddMvc();

@@ -1,25 +1,25 @@
-﻿using System;
-using System.Security.Claims;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AspNet.Security.OpenIdConnect.Extensions;
+using AspNet.Security.OpenIdConnect.Primitives;
 using AspNet.Security.OpenIdConnect.Server;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MPServer.Models;
-using OpenIddict;
 using Microsoft.AspNetCore.Builder;
 
 namespace MPServer.Controllers
 {
     public class ApiAccountController : Controller
     {
-        private readonly OpenIddictUserManager<User> _userManager;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public ApiAccountController(OpenIddictUserManager<User> userManager)
+        public ApiAccountController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         [HttpPost("~/api/account/token")]
@@ -59,19 +59,20 @@ namespace MPServer.Controllers
                     await _userManager.ResetAccessFailedCountAsync(user);
                 }
 
-                var identity = await _userManager.CreateIdentityAsync(user, request.GetScopes());
+                // Create a new ClaimsPrincipal containing the claims that
+                // will be used to create an id_token, a token or a code.
+                var principal = await _signInManager.CreateUserPrincipalAsync(user);
 
                 // Create a new authentication ticket holding the user identity.
                 var ticket = new AuthenticationTicket(
-                    new ClaimsPrincipal(identity),
+                    principal,
                     new AuthenticationProperties(),
                     OpenIdConnectServerDefaults.AuthenticationScheme);
 
                 ticket.SetResources(request.GetResources());
                 ticket.SetScopes(request.GetScopes());
 
-                return new Microsoft.AspNetCore.Mvc.SignInResult(ticket.AuthenticationScheme, ticket.Principal,
-                    ticket.Properties);
+                return SignIn(ticket.Principal, ticket.Properties, ticket.AuthenticationScheme);
             }
 
             return new BadRequestObjectResult(new OpenIdConnectResponse

@@ -1,19 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5BB53645-EEA1-448B-8FC6-F97290D12A53}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{04B102A9-6867-4F3E-BF59-58054E61D003}"
 	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
 		readme.md = readme.md
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MPServer", "src\MPServer\MPServer.xproj", "{7BD6B842-9265-4907-8BB9-BD11FAD8706B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPServer", "src\MPServer\MPServer.csproj", "{7BD6B842-9265-4907-8BB9-BD11FAD8706B}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "HeartBeatClient", "src\HeartBeatClient\HeartBeatClient.xproj", "{50857CB2-8E9B-4FB3-9349-86342E638C41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeartBeatClient", "src\HeartBeatClient\HeartBeatClient.csproj", "{50857CB2-8E9B-4FB3-9349-86342E638C41}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageClient", "src\MessageClient\MessageClient.csproj", "{41414871-72BD-4473-82F7-929274B6865A}"
 EndProject

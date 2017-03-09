@@ -1,8 +1,8 @@
-﻿using OpenIddict;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace MPServer.Models
 {
-    public class User : OpenIddictUser
+    public class User : IdentityUser
     {
     }
 }
