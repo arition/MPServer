@@ -22,15 +22,15 @@ namespace MPServer
         /// This is a workaround for missing seed data functionality in EF 7.0-rc1
         /// More info: https://github.com/aspnet/EntityFramework/issues/629
         /// </summary>
-        /// <param name="app">
+        /// <param name="service">
         /// An instance that provides the mechanisms to get instance of the database context.
         /// </param>
         /// <param name="contentRootPath">Content Path</param>
-        public static async Task SeedData(this IApplicationBuilder app, string contentRootPath)
+        public static async Task SeedData(this IServiceProvider service, string contentRootPath)
         {
-            var database = app.ApplicationServices.GetService<AppDbContext>();
-            var userManager = app.ApplicationServices.GetService<UserManager<User>>();
-            var roleManager = app.ApplicationServices.GetService<RoleManager<IdentityRole>>();
+            var database = service.GetService<AppDbContext>();
+            var userManager = service.GetService<UserManager<User>>();
+            var roleManager = service.GetService<RoleManager<IdentityRole>>();
 
             JArray userList = null;
 

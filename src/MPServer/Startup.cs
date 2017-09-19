@@ -1,8 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Security.Cryptography;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -50,9 +53,13 @@ namespace MPServer
                 t.UseOpenIddict();
             });
 
-            services.AddIdentity<User, IdentityRole>(t => t.Cookies.ApplicationCookie.AutomaticChallenge = false)
+            services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie()
+                .AddOAuthValidation();
 
             // Create signing key if not exists
             if (Configuration["SigningKey"] == null)
@@ -69,10 +76,7 @@ namespace MPServer
                 if (runtimeConfigurationFile.Exists) runtimeConfigurationFile.Delete();
                 using (var runtimeConfigurationFileWriter = runtimeConfigurationFile.CreateText())
                 {
-                    using (var jsonWriter = new JsonTextWriter(runtimeConfigurationFileWriter))
-                    {
-                        runtimeConfiguration.WriteTo(jsonWriter);
-                    }
+                    runtimeConfigurationFileWriter.Write(runtimeConfiguration.ToString(Formatting.Indented));
                 }
             }
 
@@ -82,13 +86,12 @@ namespace MPServer
                 t.AddEntityFrameworkCoreStores<AppDbContext>();
                 t.AddMvcBinders();
                 // Enable the token endpoint (required to use the password flow).
-                t.EnableTokenEndpoint("/api/account/token");
+                t.EnableAuthorizationEndpoint("/connect/authorize").EnableTokenEndpoint("/connect/token");
                 // Allow client applications to use the grant_type=password flow.
                 t.AllowPasswordFlow();
                 t.AllowRefreshTokenFlow();
                 // During development, you can disable the HTTPS requirement.
                 t.DisableHttpsRequirement();
-                t.UseJsonWebTokens();
                 t.AddSigningKey(new SymmetricSecurityKey(SigningKeyProtector.UnprotectKey(Configuration["SigningKey"])));
             });
 
@@ -101,28 +104,8 @@ namespace MPServer
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
-            app.SeedData(ContentRootPath).Wait();
             app.UseStaticFiles();
-            app.UseIdentity();
-            app.UseJwtBearerAuthentication(new JwtBearerOptions
-            {
-                AutomaticAuthenticate = true,
-                AutomaticChallenge = true,
-                TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey =
-                        new SymmetricSecurityKey(SigningKeyProtector.UnprotectKey(Configuration["SigningKey"])),
-                    ValidateIssuer = false,
-                    ValidIssuer = "",
-                    ValidateAudience = false,
-                    ValidAudience = "",
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.Zero
-                }
-            });
-            app.UseOpenIddict();
+            app.UseAuthentication();
             app.UseMvc();
         }
     }
