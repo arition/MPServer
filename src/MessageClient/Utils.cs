@@ -24,28 +24,5 @@ namespace MessageClient
             var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             return Convert.ToInt64((date - epoch).TotalMilliseconds);
         }
-
-        public static async Task LoginAsync()
-        {
-            var result = await HttpClient.PostAsync(
-                "http://128.199.195.164:8080/api/Login",
-                new StringContent("{" +
-                                  "\"Username\":\"arition\"," +
-                                  "\"PasswordHash\":\"GfSLc/sJJyPu7L6F5Jv4sIduosNg498i39KOGqQzI4w=\"" +
-                                  "}", Encoding.UTF8, "application/json"));
-            try
-            {
-                using (result)
-                {
-                    result.EnsureSuccessStatusCode();
-                    var hash = HashRegex.Match(await result.Content.ReadAsStringAsync()).Value;
-                    HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("KokoroHash", hash);
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error("KokoroGate", "Login: " + ex.Message);
-            }
-        }
     }
 }
