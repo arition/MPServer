@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5BB53645-EEA1-448B-8FC6-F97290D12A53}"
 EndProject
@@ -12,9 +12,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPServer", "src\MPServer\MPServer.csproj", "{7BD6B842-9265-4907-8BB9-BD11FAD8706B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeartBeatClient", "src\HeartBeatClient\HeartBeatClient.csproj", "{50857CB2-8E9B-4FB3-9349-86342E638C41}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageClient", "src\MessageClient\MessageClient.csproj", "{41414871-72BD-4473-82F7-929274B6865A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeartBeatClient", "src\HeartBeatClient\HeartBeatClient.csproj", "{67FEEA24-512C-49C0-BB69-E70EC2F4E93B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,23 +26,26 @@ Global
 		{7BD6B842-9265-4907-8BB9-BD11FAD8706B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BD6B842-9265-4907-8BB9-BD11FAD8706B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BD6B842-9265-4907-8BB9-BD11FAD8706B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{50857CB2-8E9B-4FB3-9349-86342E638C41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{50857CB2-8E9B-4FB3-9349-86342E638C41}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{50857CB2-8E9B-4FB3-9349-86342E638C41}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{50857CB2-8E9B-4FB3-9349-86342E638C41}.Release|Any CPU.Build.0 = Release|Any CPU
 		{41414871-72BD-4473-82F7-929274B6865A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{41414871-72BD-4473-82F7-929274B6865A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41414871-72BD-4473-82F7-929274B6865A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{41414871-72BD-4473-82F7-929274B6865A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41414871-72BD-4473-82F7-929274B6865A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{41414871-72BD-4473-82F7-929274B6865A}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{67FEEA24-512C-49C0-BB69-E70EC2F4E93B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67FEEA24-512C-49C0-BB69-E70EC2F4E93B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67FEEA24-512C-49C0-BB69-E70EC2F4E93B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67FEEA24-512C-49C0-BB69-E70EC2F4E93B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{7BD6B842-9265-4907-8BB9-BD11FAD8706B} = {5BB53645-EEA1-448B-8FC6-F97290D12A53}
-		{50857CB2-8E9B-4FB3-9349-86342E638C41} = {5BB53645-EEA1-448B-8FC6-F97290D12A53}
 		{41414871-72BD-4473-82F7-929274B6865A} = {5BB53645-EEA1-448B-8FC6-F97290D12A53}
+		{67FEEA24-512C-49C0-BB69-E70EC2F4E93B} = {5BB53645-EEA1-448B-8FC6-F97290D12A53}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EDB2A5CE-8EF5-4C2A-8C80-FB072E5B8F91}
 	EndGlobalSection
 EndGlobal
